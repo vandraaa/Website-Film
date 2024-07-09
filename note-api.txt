@@ -1,0 +1,5 @@
+Api Key : d3b5e87a3bf4aad0094ed8ebe152266e
+Api Read Access Token : eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJkM2I1ZTg3YTNiZjRhYWQwMDk0ZWQ4ZWJlMTUyMjY2ZSIsIm5iZiI6MTcxOTIxMDcyNC4yOTcwOTMsInN1YiI6IjY2NzdjNWI3MGFkNzM4ZGM1YjVlODAxZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.9QKM_wK45XHU7u8xCdhcIqWkslRPztQwFfk7QAJFg0I
+
+Base URL : https://api.themoviedb.org/3
+Base URL Image : https://image.tmdb.org/t/p/w500
