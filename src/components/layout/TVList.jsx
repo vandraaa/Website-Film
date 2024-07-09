@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import CardTVList from "../fragments/CardTVList";
 import { imageBaseUrl } from "../../services/api";
+import Loading from "../elements/Loading";
 
 const TVList = ({ getTVs, title }) => {
   const [TVs, setTVs] = useState([]);
@@ -36,7 +37,7 @@ const TVList = ({ getTVs, title }) => {
             </Link>
           ))
         ) : (
-          <p>Loading....</p>
+          <Loading />
         )}
       </div>
     </>

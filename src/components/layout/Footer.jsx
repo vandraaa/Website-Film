@@ -26,6 +26,10 @@ const Footer = () => {
                     <a href="#" className="text-base font-medium text-slate-400 hover:text-slate-500 duration-300 ease-in-out">Cookies</a>
                 </div>
             </div>
+            <div className="text-center mt-10 text-white">
+                <h2 className="font-semibold text-base">© 2024 Kevin Andra</h2>
+                <p className="text-slate-400 text-xs">All Rights Reserved.</p>
+            </div>
         </div>
     )
 }

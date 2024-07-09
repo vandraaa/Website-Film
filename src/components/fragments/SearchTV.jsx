@@ -7,21 +7,28 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import CardTVList from "./CardTVList";
+import Loading from "../elements/Loading";
 
 const SearchTv = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [query, setQuery] = useState("");
   const [isSearching, setIsSearching] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    getAiringToday().then((result) => setSearchResults(result));
+    setLoading(true);
+    getAiringToday()
+      .then((result) => setSearchResults(result))
+      .finally(() => setLoading(false));
   }, []);
 
   const search = async (q) => {
     if (q.length > 0) {
+      setLoading(true);
       const query = await getSearchTV(q);
       setSearchResults(query.results);
       setIsSearching(true);
+      setLoading(false);
     } else {
       setSearchResults([]);
       setIsSearching(false);
@@ -46,11 +53,18 @@ const SearchTv = () => {
           Search
         </Button>
       </div>
-      <h2 className="text-3xl font-semibold text-left my-8">
+      <h2 className="text-3xl font-semibold text-left mt-8">
         {isSearching ? "Search Result" : "TV Shows"}
         {isSearching && ` (${searchResults.length})`}
       </h2>
-      <div className="flex justify-center max-w-screen mb-8 items-center flex-wrap gap-x-8 gap-y-5 ">
+
+      {loading && (
+        <div className="flex justify-center items-center py-24">
+          <Loading />
+        </div>
+      )}
+
+      <div className="flex justify-center max-w-screen my-8 items-center flex-wrap gap-x-8 gap-y-5 ">
         {searchResults && searchResults.length > 0 ? (
           searchResults.map((TV) => (
             <Link

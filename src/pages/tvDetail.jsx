@@ -5,6 +5,8 @@ import { faPlay } from "@fortawesome/free-solid-svg-icons";
 import { imageBaseUrl } from "../services/api";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getDetailTv } from "../services/getTV";
+import CircularProgressBar from "../components/fragments/CircularProgressBar";
+import Loading from "../components/elements/Loading";
 
 const TVDetail = () => {
   const { id } = useParams();
@@ -16,7 +18,7 @@ const TVDetail = () => {
 
   useEffect(() => {
     document.title = `AndraCinema - ${tv.name}`;
-  }, [tv.title]);
+  }, [tv.name]);
 
   const formatDate = (dateString) => {
     const options = { month: "long", day: "numeric", year: "numeric" };
@@ -31,16 +33,10 @@ const TVDetail = () => {
     return genres ? genres.map((genre) => genre.name).join(", ") : "";
   };
 
-  const formatTime = (minutes) => {
-    const hours = Math.floor(minutes / 60);
-    const remainingMinutes = minutes % 60;
-    return `${hours}h ${remainingMinutes}m`;
-  };
-
   const userScore = () => {
     const voteAverage = tv.vote_average;
     if (voteAverage) {
-      return Math.round(voteAverage * 10) + "%";
+      return Math.round(voteAverage * 10);
     } else {
       return "N/A";
     }
@@ -76,14 +72,10 @@ const TVDetail = () => {
                     </span>
                   </h2>
                   <p className="text-xl text-white font-semibold">
-                    {tv.number_of_episodes} episodes, {tv.number_of_seasons} seasons
+                    {tv.tagline}
                   </p>
                   <div className="flex my-5 gap-x-3 items-center">
-                    <div className="p-7 relative bg-transparent rounded-[50%] flex border-[3px] border-yellow-40">
-                      <p className="text-white font-semibold text-lg absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                        {userScore()}
-                      </p>
-                    </div>
+                    <CircularProgressBar percentage={userScore()} />
                     <div className="flex flex-col w-8">
                       <p className="text-white font-bold text-[16px]">
                         User Score
@@ -98,22 +90,24 @@ const TVDetail = () => {
                       </p>
                     </Link>
                   </div>
-                  <div className="flex text-white text-sm mb-4">
-                    <p className="mr-2">{formatDate(tv.release_date)}</p>
+                  <div className="flex text-white text-sm">
+                    <p className="mr-2">{formatDate(tv.first_air_date)}</p>
                     <p>-</p>
                     <p className="mx-2">{getGenres(tv.genres)}</p>
                     <p>-</p>
-                    <p className="ml-2">{formatTime(tv.runtime)}</p>
+                    <p className="ml-2">{tv.status}</p>
                   </div>
-                  <p className="text-lg text-white w-[90%]">{tv.overview}</p>
+                  <p className="text-base text-white font-semibold">
+                    {tv.number_of_episodes} episodes, {tv.number_of_seasons} seasons
+                  </p>
+                  <p className="text-[14px] text-white w-[90%] mt-4">{tv.overview}</p>
                 </div>
               </div>
             </div>
           </>
         ) : (
           <div className="flex flex-col justify-center items-center min-h-[90vh]">
-            <p>Loading...</p>
-            <p>If loading is long, please refresh this page</p>
+            <Loading />
           </div>
         )}
       </div>

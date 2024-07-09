@@ -2,6 +2,7 @@ import { imageBaseUrl } from "../../services/api";
 import { useEffect, useState } from "react";
 import CardMovieList from "../fragments/CardMovieList";
 import { Link } from "react-router-dom";
+import Loading from "../elements/Loading";
 
 const MovieList = ({ getMovies, title }) => {
   const [movies, setMovies] = useState([]);
@@ -25,7 +26,7 @@ const MovieList = ({ getMovies, title }) => {
               </Link>
             ))
         ) : (
-          <p>Loading....</p>
+          <Loading />
         )}
       </div>
     </>
